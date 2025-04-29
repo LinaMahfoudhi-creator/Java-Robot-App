@@ -4,7 +4,7 @@ import java.time.format.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Robot {
+public abstract class Robot {
 
     protected String id; //  id généré aléatoirement
     protected int x; //  coordonnées abscisse
@@ -90,7 +90,7 @@ public class Robot {
             this.ajouterHistorique("robot réallumé");
         }
     }
-    /*public abstract void effectuerTache();
-    public abstract void deplacer(int x,int y);*/
+    public abstract void effectuerTache();
+    public abstract void deplacer(int x,int y);
 
 }

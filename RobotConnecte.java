@@ -1,4 +1,4 @@
-public class RobotConnecte extends Robot implements Connectable {
+public abstract class RobotConnecte extends Robot implements Connectable {
 
     protected boolean connecte;
     protected String reseauConnecte;
