@@ -37,7 +37,7 @@ public abstract class Robot {
         ajouterHistorique("Démarrage du robot");
     }
 
-    public void arreter(){
+    public void arreter() throws RobotException {
         if(enMarche){
             this.enMarche=false;
             this.ajouterHistorique("Arrêt du robot");
@@ -58,7 +58,7 @@ public abstract class Robot {
 
     @Override
     public String toString(){
-        return ("RobotLivraison [ID: "+this.id+", Position: ("+this.x+","+this.y+"), Energie: "+this.energie+", Heures: "+this.heuresUtilisation+"]");
+        return ("RobotLivraison [ID: "+this.id+", Position: ("+this.x+","+this.y+"), Energie: "+this.energie+", Heures: "+this.heuresUtilisation+" ");
     }
 
     public void consommerEnergie(int energie){
@@ -90,7 +90,7 @@ public abstract class Robot {
             this.ajouterHistorique("robot réallumé");
         }
     }
-    public abstract void effectuerTache();
-    public abstract void deplacer(int x,int y);
+    public abstract void effectuerTache()throws RobotException;
+    public abstract void deplacer(int x,int y) throws RobotException;
 
 }
