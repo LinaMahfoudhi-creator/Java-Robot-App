@@ -13,11 +13,16 @@ public abstract class RobotConnecte extends Robot implements Connectable {
         if(!enMarche){
             throw new RobotException("Allumer-le!");
         }
+        if(!connecte){
         this.verifierEnergie(5);
         this.reseauConnecte = reseau;
         this.connecte = true;
         this.consommerEnergie(5);
         this.ajouterHistorique("Robot Connecté au réseau " + reseau);
+        }
+        else{
+            throw new RobotException("Robot déjà connecté au réseau");
+        }
     }
     @Override
     public void deconnecter()throws RobotException{
@@ -28,6 +33,9 @@ public abstract class RobotConnecte extends Robot implements Connectable {
             this.connecte = false;
             this.reseauConnecte = null;
             this.ajouterHistorique("Le robot s'est déconnecté");
+        }
+        else{
+            throw new RobotException("Le robot n'est pas connecté!");
         }
     }
     public void envoyerDonnees(String donnees) throws RobotException {
