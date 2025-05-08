@@ -31,7 +31,7 @@ public class RobotLivraison extends RobotConnecte {
         int heurepassee=0;
         for (int i = 0; i < distance; i++) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
                 if(energie<energieNecessaire){
                     energie++;
                     this.consommerEnergie(energie);
@@ -51,16 +51,16 @@ public class RobotLivraison extends RobotConnecte {
     }
 
     public void FaireLivraison(int Destx,int Desty) throws RobotException {
-        this.enlivraison = true;
-        deplacer(Destx, Desty);
         verifierEnergie(ENERGIE_LIVRAISON);
         this.consommerEnergie(ENERGIE_LIVRAISON);
+        this.enlivraison = true;
+        deplacer(Destx, Desty);
         ajouterHistorique("Livraison terminée à " + Destination);
         this.ColisActuel = null;
         this.enlivraison = false;
         this.Destination = null;
     }
-     public void effectuerTache() throws RobotException {
+     public String effectuerTache() throws RobotException {
         if (!this.enMarche) {
             throw new RobotException("Le robot doit être démarré pour effectuer une tâche");
         }
@@ -72,31 +72,20 @@ public class RobotLivraison extends RobotConnecte {
         }
         //si le colis est chargé
         if (this.ColisActuel!=null) {
-            System.out.println("Le colis est chargé, veuillez saisir les coordonnées de la destination");
-            System.out.print("Coordonnée x : ");
-            int destX = scanner.nextInt();
-            System.out.print("Coordonnée y : ");
-            int destY = scanner.nextInt();
-            FaireLivraison(destX, destY);
+            return "Le colis est chargé, voulez vous le livrer ? (oui/non)";
         }else{
-            System.out.println("Voulez-vous charger un nouveau colis ? (oui/non)");
-            String reponse = scanner.next().toLowerCase();// Convertir la réponse en minuscules pour pour la comparaison
-            if (reponse.equals("oui")) {
-                verifierEnergie(ENERGIE_CHARGEMENT);
-                System.out.println("Veuillez saisir la destination du colis :");
-                scanner.nextLine(); 
-                String dest = scanner.nextLine();
-                chargerColis(dest);
-            } else if (reponse.equals("non")) {
-                ajouterHistorique("En attente de colis");
-            }
+            return "Voulez-vous charger un nouveau colis ? (oui/non)" ;
         }
     }
-    public void chargerColis(String destination) throws RobotException{
+    public void chargerColis(String destination, String nomColis) throws RobotException{
+        if (this.enlivraison) {
+            throw new RobotException("Le robot est en cours de livraison, impossible de charger un colis");
+        }
+        if(this.ColisActuel != null) {
+            throw new RobotException("Un colis est déjà chargé, veuillez le livrer avant d'en charger un autre");
+        }
         verifierEnergie(ENERGIE_CHARGEMENT);
         this.consommerEnergie(ENERGIE_CHARGEMENT);
-        System.out.println("Veuillez saisir le nom ou la description du colis :");
-        String nomColis = scanner.nextLine();
         this.ColisActuel = nomColis;
         this.Destination = destination;
         ajouterHistorique("Colis chargé vers " + destination);

@@ -96,7 +96,7 @@ public abstract class Robot {
             throw new RobotException("Déjà allumé");
         }
     }
-    public abstract void effectuerTache()throws RobotException;
+    public abstract String effectuerTache()throws RobotException;
     public abstract void deplacer(int x,int y) throws RobotException;
 
 }

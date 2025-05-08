@@ -9,7 +9,7 @@ public class FenetreDesRobots extends JFrame {
     public FenetreDesRobots() {
         //mise en place de fenêtre
         this.setTitle("Jeu de Robots");
-        this.setSize(520, 700);
+        this.setSize(500, 700);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
